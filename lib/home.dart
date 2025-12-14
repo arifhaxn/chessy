@@ -30,7 +30,7 @@ class Home extends StatelessWidget {
                   width: 400,
                   height: 200,
                 ),
-                const SizedBox(height: 40),
+                const SizedBox(height: 27),
                 const Text(
                   'Enter Duration',
                   style: TextStyle(
@@ -46,10 +46,11 @@ class Home extends StatelessWidget {
                     ],
                   ),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 30),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 40.0),
                   child: TextField(
+                    keyboardType: TextInputType.number,
                     controller: input,
                     decoration: InputDecoration(
                       filled: true,
@@ -64,7 +65,7 @@ class Home extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 50),
+                const SizedBox(height: 30),
                 ElevatedButton(
                   onPressed: () {
                     final value = input.text;
@@ -89,6 +90,16 @@ class Home extends StatelessWidget {
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
+                  ),
+                ),
+                SizedBox(height: 60),
+                Text(
+                  'Tip: Tapping with two fingers will play the check sound!',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: const Color.fromARGB(179, 0, 0, 0),
+                    fontSize: 14,
+                    fontStyle: FontStyle.italic,
                   ),
                 ),
               ],
