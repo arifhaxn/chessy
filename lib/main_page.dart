@@ -20,10 +20,8 @@ class _MainPageState extends State<MainPage> {
   bool _isPaused = true;
   final AudioPlayer _audioPlayer = AudioPlayer();
 
-  // 🆕 NEW: State variable to reliably track the number of fingers down
   int _activePointers = 0;
 
-  // --- LIFECYCLE METHODS ---
 
   @override
   void initState() {
@@ -36,7 +34,6 @@ class _MainPageState extends State<MainPage> {
     _player2Seconds = initialSeconds;
     _timer = Timer(Duration.zero, () {});
 
-    // ✅ FIXED AUDIO PATH: Using the standard 'assets/check_alert.mp3' path
     _audioPlayer.setSourceAsset('check.mp3');
   }
 
@@ -96,7 +93,6 @@ class _MainPageState extends State<MainPage> {
 
   void _playCheckSound() async {
     if (!_isPaused) {
-      // ✅ FIXED AUDIO PATH: Using the standard 'assets/check_alert.mp3' path
       await _audioPlayer.resume();
       await _audioPlayer.seek(Duration.zero);
       await _audioPlayer.play(AssetSource('check.mp3'));
@@ -119,15 +115,11 @@ class _MainPageState extends State<MainPage> {
     }
   }
 
-  // --- HELPER FUNCTION ---
-
   String _formatTime(int totalSeconds) {
     final minutes = (totalSeconds ~/ 60).toString().padLeft(2, '0');
     final seconds = (totalSeconds % 60).toString().padLeft(2, '0');
     return '$minutes:$seconds';
   }
-
-  // --- UI BUILD METHOD ---
 
   @override
   Widget build(BuildContext context) {
@@ -146,14 +138,14 @@ class _MainPageState extends State<MainPage> {
               // --- Player 1 (Top) ---
               Expanded(
                 child: Listener(
-                  // 🆕 NEW LOGIC: Track when a finger goes down
+                  //Track when a finger goes down
                   onPointerDown: (event) {
                     _activePointers++;
-                    if (_activePointers == 2) {
+                    if (_activePointers >= 2) {
                       _playCheckSound();
                     }
                   },
-                  // 🆕 NEW LOGIC: Track when a finger goes up (to reset count)
+                  //Track when a finger goes up (to reset count)
                   onPointerUp: (event) {
                     _activePointers--;
                   },
@@ -213,14 +205,14 @@ class _MainPageState extends State<MainPage> {
               // --- Player 2 (Bottom) ---
               Expanded(
                 child: Listener(
-                  // 🆕 NEW LOGIC: Track when a finger goes down
+                  //Track when a finger goes down
                   onPointerDown: (event) {
                     _activePointers++;
                     if (_activePointers == 2) {
                       _playCheckSound();
                     }
                   },
-                  // 🆕 NEW LOGIC: Track when a finger goes up (to reset count)
+                  //Track when a finger goes up (to reset count)
                   onPointerUp: (event) {
                     _activePointers--;
                   },
